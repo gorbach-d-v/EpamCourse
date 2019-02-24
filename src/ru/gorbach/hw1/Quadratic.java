@@ -1,3 +1,5 @@
+package ru.gorbach.hw1;
+
 public class Quadratic {
     public static void main(String[] args){
         calc(1,1,-6);

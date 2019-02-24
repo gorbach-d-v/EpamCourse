@@ -1,4 +1,4 @@
-package ru.gorbach;
+package ru.gorbach.hw4;
 
 public class Passport {
     private String serial;

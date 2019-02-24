@@ -1,4 +1,4 @@
-package ru.gorbach;
+package ru.gorbach.hw2;
 
 public class Order {
     private int price;
