@@ -27,7 +27,7 @@ public class CityListRepo implements CityRepo {
     }
 
     @Override
-    public City findById(long id) {
+    public City findById(Long id) {
         return findCityById(id);
     }
 

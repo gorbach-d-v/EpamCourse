@@ -26,7 +26,7 @@ public class OrderListRepo implements OrderRepo {
     }
 
     @Override
-    public Order findById(long id) {
+    public Order findById(Long id) {
         return findOrderById(id);
     }
 

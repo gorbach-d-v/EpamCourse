@@ -37,7 +37,7 @@ public class CountryArrayRepo implements CountryRepo {
     }
 
     @Override
-    public Country findById(long id) {
+    public Country findById(Long id) {
         Integer countryIndex = findCountryIndexById(id);
         if (countryIndex != null) {
             return countries[countryIndex];

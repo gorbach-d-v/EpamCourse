@@ -38,7 +38,7 @@ public class CustomerArrayRepo implements CustomerRepo {
     }
 
     @Override
-    public Customer findById(long id) {
+    public Customer findById(Long id) {
         Integer customerIndex = findCustomerIndexById(id);
         if (customerIndex != null) {
             return customers[customerIndex];

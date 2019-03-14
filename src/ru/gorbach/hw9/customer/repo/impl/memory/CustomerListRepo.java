@@ -1,8 +1,8 @@
 package ru.gorbach.hw9.customer.repo.impl.memory;
 
 import ru.gorbach.hw9.customer.domain.Customer;
-import ru.gorbach.hw9.customer.search.CustomerSearchCondition;
 import ru.gorbach.hw9.customer.repo.CustomerRepo;
+import ru.gorbach.hw9.customer.search.CustomerSearchCondition;
 import ru.gorbach.hw9.storage.sequenceGenerator;
 
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ public class CustomerListRepo implements CustomerRepo {
     }
 
     @Override
-    public Customer findById(long id) {
+    public Customer findById(Long id) {
         return findCustomerById(id);
     }
 

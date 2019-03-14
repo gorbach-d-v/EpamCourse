@@ -27,7 +27,7 @@ public class CountryListRepo implements CountryRepo {
     }
 
     @Override
-    public Country findById(long id) {
+    public Country findById(Long id) {
         return findCountryById(id);
     }
 

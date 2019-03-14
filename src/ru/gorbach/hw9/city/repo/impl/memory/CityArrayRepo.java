@@ -38,7 +38,7 @@ public class CityArrayRepo implements CityRepo {
     }
 
     @Override
-    public City findById(long id) {
+    public City findById(Long id) {
         Integer cityIndex = findCityIndexById(id);
         if (cityIndex != null) {
             return cities[cityIndex];

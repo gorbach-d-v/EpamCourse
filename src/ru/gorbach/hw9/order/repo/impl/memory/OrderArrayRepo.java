@@ -36,7 +36,7 @@ public class OrderArrayRepo implements OrderRepo {
     }
 
     @Override
-    public Order findById(long id) {
+    public Order findById(Long id) {
         Integer orderIndex = findOrderIndexById(id);
         if (orderIndex != null) {
             return orders[orderIndex];
