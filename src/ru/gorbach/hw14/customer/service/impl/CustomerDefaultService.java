@@ -1,10 +1,9 @@
 package ru.gorbach.hw14.customer.service.impl;
 
-import ru.gorbach.hw14.common.solutions.paginationutils.Pagination;
-import ru.gorbach.hw14.customer.service.CustomerService;
 import ru.gorbach.hw14.customer.domain.Customer;
 import ru.gorbach.hw14.customer.repo.CustomerRepo;
 import ru.gorbach.hw14.customer.search.CustomerSearchCondition;
+import ru.gorbach.hw14.customer.service.CustomerService;
 import ru.gorbach.hw14.order.domain.Order;
 import ru.gorbach.hw14.order.repo.OrderRepo;
 import ru.gorbach.hw14.order.service.OrderService;
@@ -50,8 +49,8 @@ public class CustomerDefaultService implements CustomerService {
     }
 
     @Override
-    public List<Customer> search(CustomerSearchCondition searchCondition, Pagination pagination) {
-        return customerRepo.search(searchCondition, pagination);
+    public List<Customer> search(CustomerSearchCondition searchCondition) {
+        return customerRepo.search(searchCondition);
     }
 
     @Override

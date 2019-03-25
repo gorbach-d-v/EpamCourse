@@ -1,8 +1,8 @@
 package ru.gorbach.hw14.order.repo.impl.memory;
 
-import ru.gorbach.hw14.common.solutions.paginationutils.Pagination;
-import ru.gorbach.hw14.common.solutions.paginationutils.PaginationUtils;
+import ru.gorbach.hw14.common.business.search.Paginator;
 import ru.gorbach.hw14.common.solutions.utils.ArrayUtils;
+import ru.gorbach.hw14.common.solutions.utils.CollectionUtils;
 import ru.gorbach.hw14.order.domain.Order;
 import ru.gorbach.hw14.order.repo.OrderRepo;
 import ru.gorbach.hw14.order.search.OrderSearchCondition;
@@ -48,7 +48,7 @@ public class OrderArrayRepo implements OrderRepo {
     }
 
     @Override
-    public List<Order> search(OrderSearchCondition searchCondition, Pagination pagination) {
+    public List<Order> search(OrderSearchCondition searchCondition) {
         if (searchCondition.getId() != null) {
             return Collections.singletonList(findById(searchCondition.getId()));
         } else {
@@ -59,7 +59,10 @@ public class OrderArrayRepo implements OrderRepo {
             if (needOrdering) {
                 orderingComponent.applyOrdering(result, searchCondition);
             }
-            return PaginationUtils.getLimitList(result,pagination);
+            if (!result.isEmpty() && searchCondition.needPagination()) {
+                result = getPageOfData(result, searchCondition.getPaginator());
+            }
+            return result;
         }
     }
 
@@ -91,6 +94,10 @@ public class OrderArrayRepo implements OrderRepo {
             return new ArrayList<>(Arrays.asList(toReturn));
         }
         return Collections.emptyList();
+    }
+
+    private List<Order> getPageOfData(List<Order> orders, Paginator paginator) {
+        return CollectionUtils.getPageOfData(orders, paginator.getLimit(), paginator.getOffset());
     }
 
     @Override

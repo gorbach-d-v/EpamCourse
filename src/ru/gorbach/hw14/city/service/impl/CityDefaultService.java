@@ -1,13 +1,12 @@
 package ru.gorbach.hw14.city.service.impl;
 
+import ru.gorbach.hw14.city.domain.City;
 import ru.gorbach.hw14.city.exception.CityExceptionMeta;
 import ru.gorbach.hw14.city.exception.unchecked.DeleteCityException;
+import ru.gorbach.hw14.city.repo.CityRepo;
 import ru.gorbach.hw14.city.search.CitySearchCondition;
 import ru.gorbach.hw14.city.service.CityService;
 import ru.gorbach.hw14.common.business.exception.ReservationUncheckedException;
-import ru.gorbach.hw14.city.domain.City;
-import ru.gorbach.hw14.city.repo.CityRepo;
-import ru.gorbach.hw14.common.solutions.paginationutils.Pagination;
 import ru.gorbach.hw14.order.repo.OrderRepo;
 
 import java.util.List;
@@ -46,8 +45,8 @@ public class CityDefaultService implements CityService {
     }
 
     @Override
-    public List<City> search(CitySearchCondition searchCondition, Pagination pagination) {
-        return cityRepo.search(searchCondition, pagination);
+    public List<City> search(CitySearchCondition searchCondition) {
+        return cityRepo.search(searchCondition);
     }
 
     @Override

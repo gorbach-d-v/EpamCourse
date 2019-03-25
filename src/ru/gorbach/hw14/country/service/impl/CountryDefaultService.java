@@ -1,15 +1,14 @@
 package ru.gorbach.hw14.country.service.impl;
 
-import ru.gorbach.hw14.common.solutions.paginationutils.Pagination;
-import ru.gorbach.hw14.country.exception.unchecked.DeleteCountryException;
-import ru.gorbach.hw14.country.repo.CountryRepo;
-import ru.gorbach.hw14.country.search.CountrySearchCondition;
-import ru.gorbach.hw14.country.service.CountryService;
 import ru.gorbach.hw14.city.domain.City;
 import ru.gorbach.hw14.city.repo.CityRepo;
 import ru.gorbach.hw14.common.business.exception.ReservationUncheckedException;
 import ru.gorbach.hw14.country.domain.Country;
 import ru.gorbach.hw14.country.exception.CountryExceptionMeta;
+import ru.gorbach.hw14.country.exception.unchecked.DeleteCountryException;
+import ru.gorbach.hw14.country.repo.CountryRepo;
+import ru.gorbach.hw14.country.search.CountrySearchCondition;
+import ru.gorbach.hw14.country.service.CountryService;
 import ru.gorbach.hw14.order.repo.OrderRepo;
 
 import java.util.Collections;
@@ -58,8 +57,8 @@ public class CountryDefaultService implements CountryService {
     }
 
     @Override
-    public List<Country> search(CountrySearchCondition searchCondition, Pagination pagination) {
-        return countryRepo.search(searchCondition, pagination);
+    public List<Country> search(CountrySearchCondition searchCondition) {
+        return countryRepo.search(searchCondition);
     }
 
     @Override

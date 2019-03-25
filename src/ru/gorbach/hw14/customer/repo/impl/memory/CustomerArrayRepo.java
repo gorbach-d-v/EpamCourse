@@ -1,8 +1,8 @@
 package ru.gorbach.hw14.customer.repo.impl.memory;
 
-import ru.gorbach.hw14.common.solutions.paginationutils.Pagination;
-import ru.gorbach.hw14.common.solutions.paginationutils.PaginationUtils;
+import ru.gorbach.hw14.common.business.search.Paginator;
 import ru.gorbach.hw14.common.solutions.utils.ArrayUtils;
+import ru.gorbach.hw14.common.solutions.utils.CollectionUtils;
 import ru.gorbach.hw14.customer.domain.Customer;
 import ru.gorbach.hw14.customer.repo.CustomerRepo;
 import ru.gorbach.hw14.customer.search.CustomerSearchCondition;
@@ -50,7 +50,7 @@ public class CustomerArrayRepo implements CustomerRepo {
     }
 
     @Override
-    public List<Customer> search(CustomerSearchCondition searchCondition, Pagination pagination) {
+    public List<Customer> search(CustomerSearchCondition searchCondition) {
         if (searchCondition.getId() != null) {
             return Collections.singletonList(findById(searchCondition.getId()));
         } else {
@@ -60,7 +60,10 @@ public class CustomerArrayRepo implements CustomerRepo {
             if (needOrdering) {
                 orderingComponent.applyOrdering(result, searchCondition);
             }
-            return PaginationUtils.getLimitList(result,pagination);
+            if (!result.isEmpty() && searchCondition.needPagination()) {
+                result = getPageOfData(result, searchCondition.getPaginator());
+            }
+            return result;
         }
     }
 
@@ -97,6 +100,10 @@ public class CustomerArrayRepo implements CustomerRepo {
             return new ArrayList<>(Arrays.asList(toReturn));
         }
         return Collections.emptyList();
+    }
+
+    private List<Customer> getPageOfData(List<Customer> customers, Paginator paginator) {
+        return CollectionUtils.getPageOfData(customers, paginator.getLimit(), paginator.getOffset());
     }
 
     @Override

@@ -1,6 +1,5 @@
 package ru.gorbach.hw14.order.service.impl;
 
-import ru.gorbach.hw14.common.solutions.paginationutils.Pagination;
 import ru.gorbach.hw14.order.domain.Order;
 import ru.gorbach.hw14.order.repo.OrderRepo;
 import ru.gorbach.hw14.order.search.OrderSearchCondition;
@@ -37,8 +36,8 @@ public class OrderDefaultService implements OrderService {
     }
 
     @Override
-    public List<Order> search(OrderSearchCondition searchCondition, Pagination pagination) {
-        return orderRepo.search(searchCondition, pagination);
+    public List<Order> search(OrderSearchCondition searchCondition) {
+        return orderRepo.search(searchCondition);
     }
 
     @Override

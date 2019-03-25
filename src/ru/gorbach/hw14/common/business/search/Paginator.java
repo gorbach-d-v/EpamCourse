@@ -1,10 +1,10 @@
-package ru.gorbach.hw14.common.solutions.paginationutils;
+package ru.gorbach.hw14.common.business.search;
 
-public class Pagination {
+public class Paginator {
     private int offset;
     private int limit;
 
-    public Pagination(int offset, int limit) {
+    public Paginator(int offset, int limit) {
         this.offset = offset;
         this.limit = limit;
     }

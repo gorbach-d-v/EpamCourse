@@ -3,8 +3,8 @@ package ru.gorbach.hw14.city.repo.impl.memory;
 import ru.gorbach.hw14.city.search.CitySearchCondition;
 import ru.gorbach.hw14.city.domain.City;
 import ru.gorbach.hw14.city.repo.CityRepo;
-import ru.gorbach.hw14.common.solutions.paginationutils.Pagination;
-import ru.gorbach.hw14.common.solutions.paginationutils.PaginationUtils;
+import ru.gorbach.hw14.common.business.search.Paginator;
+import ru.gorbach.hw14.common.solutions.utils.CollectionUtils;
 import ru.gorbach.hw14.storage.SequenceGenerator;
 
 import java.util.ArrayList;
@@ -34,7 +34,7 @@ public class CityListRepo implements CityRepo {
     }
 
     @Override
-    public List<City> search(CitySearchCondition searchCondition, Pagination pagination) {
+    public List<City> search(CitySearchCondition searchCondition) {
         if (searchCondition.getId() != null) {
             return Collections.singletonList(findById(searchCondition.getId()));
         } else {
@@ -44,7 +44,11 @@ public class CityListRepo implements CityRepo {
             if (needOrdering) {
                 orderingComponent.applyOrdering(result, searchCondition);
             }
-            return PaginationUtils.getLimitList(result,pagination);
+
+            if (!result.isEmpty() && searchCondition.needPagination()) {
+                result = getPageOfData(result, searchCondition.getPaginator());
+            }
+            return result;
         }
     }
 
@@ -72,7 +76,6 @@ public class CityListRepo implements CityRepo {
         boolean searchByClimate = (searchCondition.getClimate() != null);
 
         List<City> result = new ArrayList<>();
-        int resultIndex = 0;
 
         for (City city : cityList) {
             if (city != null) {
@@ -100,6 +103,10 @@ public class CityListRepo implements CityRepo {
             }
         }
         return result;
+    }
+
+    private List<City> getPageOfData(List<City> cities, Paginator paginator) {
+        return CollectionUtils.getPageOfData(cities, paginator.getLimit(), paginator.getOffset());
     }
 
     private City findCityById(Long cityId) {

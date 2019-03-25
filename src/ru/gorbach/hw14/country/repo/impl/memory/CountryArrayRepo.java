@@ -1,11 +1,11 @@
 package ru.gorbach.hw14.country.repo.impl.memory;
 
-import ru.gorbach.hw14.common.solutions.paginationutils.Pagination;
-import ru.gorbach.hw14.common.solutions.paginationutils.PaginationUtils;
+import ru.gorbach.hw14.common.business.search.Paginator;
+import ru.gorbach.hw14.common.solutions.utils.ArrayUtils;
+import ru.gorbach.hw14.common.solutions.utils.CollectionUtils;
+import ru.gorbach.hw14.country.domain.Country;
 import ru.gorbach.hw14.country.repo.CountryRepo;
 import ru.gorbach.hw14.country.search.CountrySearchCondition;
-import ru.gorbach.hw14.common.solutions.utils.ArrayUtils;
-import ru.gorbach.hw14.country.domain.Country;
 import ru.gorbach.hw14.storage.SequenceGenerator;
 
 import java.util.ArrayList;
@@ -49,7 +49,7 @@ public class CountryArrayRepo implements CountryRepo {
     }
 
     @Override
-    public List<Country> search(CountrySearchCondition searchCondition, Pagination pagination) {
+    public List<Country> search(CountrySearchCondition searchCondition) {
         if (searchCondition.getId() != null) {
             return Collections.singletonList(findById(searchCondition.getId()));
         } else {
@@ -59,7 +59,10 @@ public class CountryArrayRepo implements CountryRepo {
             if (needOrdering) {
                 orderingComponent.applyOrdering(result, searchCondition);
             }
-            return PaginationUtils.getLimitList(result,pagination);
+            if (!result.isEmpty() && searchCondition.needPagination()) {
+                result = getPageOfData(result, searchCondition.getPaginator());
+            }
+            return result;
         }
     }
 
@@ -98,6 +101,9 @@ public class CountryArrayRepo implements CountryRepo {
         return Collections.emptyList();
     }
 
+    private List<Country> getPageOfData(List<Country> countries, Paginator paginator) {
+        return CollectionUtils.getPageOfData(countries, paginator.getLimit(), paginator.getOffset());
+    }
 
     @Override
     public void deleteById(Long id) {

@@ -1,7 +1,7 @@
 package ru.gorbach.hw14.country.repo.impl.memory;
 
-import ru.gorbach.hw14.common.solutions.paginationutils.Pagination;
-import ru.gorbach.hw14.common.solutions.paginationutils.PaginationUtils;
+import ru.gorbach.hw14.common.business.search.Paginator;
+import ru.gorbach.hw14.common.solutions.utils.CollectionUtils;
 import ru.gorbach.hw14.country.domain.Country;
 import ru.gorbach.hw14.country.repo.CountryRepo;
 import ru.gorbach.hw14.country.search.CountrySearchCondition;
@@ -34,7 +34,7 @@ public class CountryListRepo implements CountryRepo {
     }
 
     @Override
-    public List<Country> search(CountrySearchCondition searchCondition, Pagination pagination) {
+    public List<Country> search(CountrySearchCondition searchCondition) {
         if (searchCondition.getId() != null) {
             return Collections.singletonList(findById(searchCondition.getId()));
         } else {
@@ -44,7 +44,10 @@ public class CountryListRepo implements CountryRepo {
             if (needOrdering) {
                 orderingComponent.applyOrdering(result, searchCondition);
             }
-            return PaginationUtils.getLimitList(result,pagination);
+            if (!result.isEmpty() && searchCondition.needPagination()) {
+                result = getPageOfData(result, searchCondition.getPaginator());
+            }
+            return result;
         }
     }
 
@@ -72,6 +75,10 @@ public class CountryListRepo implements CountryRepo {
             }
         }
         return result;
+    }
+
+    private List<Country> getPageOfData(List<Country> countries, Paginator paginator) {
+        return CollectionUtils.getPageOfData(countries, paginator.getLimit(), paginator.getOffset());
     }
 
     @Override
