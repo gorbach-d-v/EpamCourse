@@ -67,6 +67,33 @@ public class CityArrayRepo implements CityRepo {
         }
     }
 
+    @Override
+    public void deleteById(Long id) {
+        Integer cityIndex = findCityIndexById(id);
+
+        if (cityIndex != null) {
+            deleteCityByIndex(cityIndex);
+        }
+    }
+
+    @Override
+    public void printAll() {
+        for (City city : cities) {
+            System.out.println(city);
+        }
+    }
+
+    @Override
+    public List<City> findAll() {
+        return new ArrayList<>(Arrays.asList(cities));
+    }
+
+    @Override
+    public int countAll() {
+        return cities.length;
+    }
+
+
     private List<City> doSearch(CitySearchCondition searchCondition) {
         boolean searchByName = isNotBlank(searchCondition.getName());
         boolean searchByPopulation = (searchCondition.getPopulation() != null);
@@ -114,22 +141,6 @@ public class CityArrayRepo implements CityRepo {
 
     private List<City> getPageOfData(List<City> cities, Paginator paginator) {
         return CollectionUtils.getPageOfData(cities, paginator.getLimit(), paginator.getOffset());
-    }
-
-    @Override
-    public void deleteById(Long id) {
-        Integer cityIndex = findCityIndexById(id);
-
-        if (cityIndex != null) {
-            deleteCityByIndex(cityIndex);
-        }
-    }
-
-    @Override
-    public void printAll() {
-        for (City city : cities) {
-            System.out.println(city);
-        }
     }
 
     private void deleteCityByIndex(int index) {

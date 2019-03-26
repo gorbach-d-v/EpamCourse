@@ -12,20 +12,15 @@ import static ru.gorbach.hw14.country.search.CountryOrderByField.NAME;
 public class CountryComparatorComponent {
     private static final CountryComparatorComponent INSTANCE = new CountryComparatorComponent();
     private static Map<CountryOrderByField, Comparator<Country>> comparatorsByField = new HashMap<>();
-    /**
-     * For complex comparator only
-     */
     private static Set<CountryOrderByField> fieldComparePriorityOrder = new LinkedHashSet<>(Arrays.asList(NAME, LANGUAGE));
 
     static {
-
         comparatorsByField.put(NAME, getComparatorForNameField());
         comparatorsByField.put(LANGUAGE, getComparatorForLanguageField());
     }
 
     private CountryComparatorComponent() {
     }
-
 
     public static CountryComparatorComponent getInstance() {
         return INSTANCE;
@@ -75,7 +70,6 @@ public class CountryComparatorComponent {
 
                     }
                 }
-
 
                 return result;
             }

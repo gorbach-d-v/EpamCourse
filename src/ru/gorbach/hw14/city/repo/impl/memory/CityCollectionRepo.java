@@ -14,7 +14,7 @@ import java.util.List;
 import static ru.gorbach.hw14.common.solutions.utils.StringUtils.isNotBlank;
 import static ru.gorbach.hw14.storage.Storage.cityList;
 
-public class CityListRepo implements CityRepo {
+public class CityCollectionRepo implements CityRepo {
     private CityOrderingComponent orderingComponent = new CityOrderingComponent();
 
     @Override
@@ -67,6 +67,15 @@ public class CityListRepo implements CityRepo {
         }
     }
 
+    @Override
+    public List<City> findAll() {
+        return cityList;
+    }
+
+    @Override
+    public int countAll() {
+        return cityList.size();
+    }
 
 
     private List<City> doSearch(CitySearchCondition searchCondition) {

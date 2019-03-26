@@ -14,7 +14,7 @@ import java.util.List;
 import static ru.gorbach.hw14.common.solutions.utils.StringUtils.isNotBlank;
 import static ru.gorbach.hw14.storage.Storage.countryList;
 
-public class CountryListRepo implements CountryRepo {
+public class CountryCollectionRepo implements CountryRepo {
     private CountryOrderingComponent orderingComponent = new CountryOrderingComponent();
 
     @Override
@@ -51,6 +51,33 @@ public class CountryListRepo implements CountryRepo {
         }
     }
 
+    @Override
+    public void deleteById(Long id) {
+        Country country = findCountryById(id);
+
+        if (country != null) {
+            countryList.remove(country);
+        }
+    }
+
+    @Override
+    public void printAll() {
+        for (Country country : countryList) {
+            System.out.println(country);
+        }
+    }
+
+    @Override
+    public List<Country> findAll() {
+        return countryList;
+    }
+
+    @Override
+    public int countAll() {
+        return countryList.size();
+    }
+
+
     private List<Country> doSearch(CountrySearchCondition searchCondition) {
         boolean searchByName = isNotBlank(searchCondition.getName());
         boolean searchByLanguage = isNotBlank(searchCondition.getLanguage());
@@ -79,22 +106,6 @@ public class CountryListRepo implements CountryRepo {
 
     private List<Country> getPageOfData(List<Country> countries, Paginator paginator) {
         return CollectionUtils.getPageOfData(countries, paginator.getLimit(), paginator.getOffset());
-    }
-
-    @Override
-    public void deleteById(Long id) {
-        Country country = findCountryById(id);
-
-        if (country != null) {
-            countryList.remove(country);
-        }
-    }
-
-    @Override
-    public void printAll() {
-        for (Country country : countryList) {
-            System.out.println(country);
-        }
     }
 
     private Country findCountryById(Long countryId) {

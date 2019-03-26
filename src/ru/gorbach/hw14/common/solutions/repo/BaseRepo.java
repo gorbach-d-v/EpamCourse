@@ -1,5 +1,7 @@
 package ru.gorbach.hw14.common.solutions.repo;
 
+import java.util.List;
+
 public interface BaseRepo<T, ID> {
 
     void add(T t);
@@ -11,4 +13,8 @@ public interface BaseRepo<T, ID> {
     void deleteById(ID id);
 
     void printAll();
+
+    List<T> findAll();
+
+    int countAll();
 }

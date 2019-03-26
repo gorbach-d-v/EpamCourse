@@ -10,19 +10,14 @@ import static ru.gorbach.hw14.order.search.OrderOrderByField.PRICE;
 public class OrderComparatorComponent {
     private static final OrderComparatorComponent INSTANCE = new OrderComparatorComponent();
     private static Map<OrderOrderByField, Comparator<Order>> comparatorsByField = new HashMap<>();
-    /**
-     * For complex comparator only
-     */
     private static Set<OrderOrderByField> fieldComparePriorityOrder = new LinkedHashSet<>(Arrays.asList(PRICE));
 
     static {
-
         comparatorsByField.put(PRICE, getComparatorForPriceField());
     }
 
     private OrderComparatorComponent() {
     }
-
 
     public static OrderComparatorComponent getInstance() {
         return INSTANCE;
@@ -63,7 +58,6 @@ public class OrderComparatorComponent {
 
                     }
                 }
-
 
                 return result;
             }

@@ -12,20 +12,15 @@ import static ru.gorbach.hw14.common.business.repo.memory.CommonComparatorHolder
 public class CityComparatorComponent {
     private static final CityComparatorComponent INSTANCE = new CityComparatorComponent();
     private static Map<CityOrderByField, Comparator<City>> comparatorsByField = new HashMap<>();
-    /**
-     * For complex comparator only
-     */
     private static Set<CityOrderByField> fieldComparePriorityOrder = new LinkedHashSet<>(Arrays.asList(NAME, POPULATION));
 
     static {
-
         comparatorsByField.put(NAME, getComparatorForNameField());
         comparatorsByField.put(POPULATION, getComparatorForPopulationField());
     }
 
     private CityComparatorComponent() {
     }
-
 
     public static CityComparatorComponent getInstance() {
         return INSTANCE;
@@ -75,7 +70,6 @@ public class CityComparatorComponent {
 
                     }
                 }
-
 
                 return result;
             }

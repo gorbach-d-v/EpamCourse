@@ -12,20 +12,15 @@ import static ru.gorbach.hw14.customer.search.CustomerOrderByField.LASTNAME;
 public class CustomerComparatorComponent {
     private static final CustomerComparatorComponent INSTANCE = new CustomerComparatorComponent();
     private static Map<CustomerOrderByField, Comparator<Customer>> comparatorsByField = new HashMap<>();
-    /**
-     * For complex comparator only
-     */
     private static Set<CustomerOrderByField> fieldComparePriorityOrder = new LinkedHashSet<>(Arrays.asList(FIRSTNAME, LASTNAME));
 
     static {
-
         comparatorsByField.put(FIRSTNAME, getComparatorForFirstNameField());
         comparatorsByField.put(LASTNAME, getComparatorForLastNameField());
     }
 
     private CustomerComparatorComponent() {
     }
-
 
     public static CustomerComparatorComponent getInstance() {
         return INSTANCE;
@@ -75,7 +70,6 @@ public class CustomerComparatorComponent {
 
                     }
                 }
-
 
                 return result;
             }

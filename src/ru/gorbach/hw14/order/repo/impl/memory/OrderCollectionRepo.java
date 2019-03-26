@@ -13,7 +13,7 @@ import java.util.List;
 
 import static ru.gorbach.hw14.storage.Storage.orderList;
 
-public class OrderListRepo implements OrderRepo {
+public class OrderCollectionRepo implements OrderRepo {
     private OrderOrderingComponent orderingComponent = new OrderOrderingComponent();
 
     @Override
@@ -48,31 +48,6 @@ public class OrderListRepo implements OrderRepo {
             }
             return result;
         }
-    }
-
-    private List<Order> doSearch(OrderSearchCondition searchCondition) {
-        boolean searchByPrice = (searchCondition.getPrice() != null);
-
-        List<Order> result = new ArrayList<>();
-
-        for (Order order : orderList) {
-            if (order != null) {
-                boolean found = true;
-
-                if (searchByPrice) {
-                    found = searchCondition.getPrice().equals(order.getPrice());
-                }
-
-                if (found) {
-                    result.add(order);
-                }
-            }
-        }
-        return result;
-    }
-
-    private List<Order> getPageOfData(List<Order> orders, Paginator paginator) {
-        return CollectionUtils.getPageOfData(orders, paginator.getLimit(), paginator.getOffset());
     }
 
     @Override
@@ -111,6 +86,42 @@ public class OrderListRepo implements OrderRepo {
             }
         }
         return count;
+    }
+
+    @Override
+    public List<Order> findAll() {
+        return orderList;
+    }
+
+    @Override
+    public int countAll() {
+        return orderList.size();
+    }
+
+
+    private List<Order> doSearch(OrderSearchCondition searchCondition) {
+        boolean searchByPrice = (searchCondition.getPrice() != null);
+
+        List<Order> result = new ArrayList<>();
+
+        for (Order order : orderList) {
+            if (order != null) {
+                boolean found = true;
+
+                if (searchByPrice) {
+                    found = searchCondition.getPrice().equals(order.getPrice());
+                }
+
+                if (found) {
+                    result.add(order);
+                }
+            }
+        }
+        return result;
+    }
+
+    private List<Order> getPageOfData(List<Order> orders, Paginator paginator) {
+        return CollectionUtils.getPageOfData(orders, paginator.getLimit(), paginator.getOffset());
     }
 
     private Order findOrderById(Long orderId) {

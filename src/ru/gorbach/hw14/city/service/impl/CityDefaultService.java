@@ -72,4 +72,14 @@ public class CityDefaultService implements CityService {
     public void printAll() {
         cityRepo.printAll();
     }
+
+    @Override
+    public List<City> findAll() {
+        return cityRepo.findAll();
+    }
+
+    @Override
+    public int countAll() {
+        return cityRepo.countAll();
+    }
 }

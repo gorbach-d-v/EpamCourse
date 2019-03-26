@@ -9,8 +9,7 @@ public class CustomStaxReader implements AutoCloseable {
     private XMLStreamReader reader = null;
     private FileInputStream fileInputStream;
 
-
-    private CustomStaxReader(){
+    private CustomStaxReader() {
     }
 
     public static CustomStaxReader newInstance(String file) throws Exception {
@@ -30,7 +29,6 @@ public class CustomStaxReader implements AutoCloseable {
             fileInputStream.close();
         }
     }
-
 
     public XMLStreamReader getReader() {
         return reader;

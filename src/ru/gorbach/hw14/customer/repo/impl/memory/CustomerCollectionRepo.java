@@ -14,7 +14,7 @@ import java.util.List;
 import static ru.gorbach.hw14.common.solutions.utils.StringUtils.isNotBlank;
 import static ru.gorbach.hw14.storage.Storage.customerList;
 
-public class CustomerListRepo implements CustomerRepo {
+public class CustomerCollectionRepo implements CustomerRepo {
     private CustomerOrderingComponent orderingComponent = new CustomerOrderingComponent();
 
     @Override
@@ -51,6 +51,33 @@ public class CustomerListRepo implements CustomerRepo {
         }
     }
 
+    @Override
+    public void deleteById(Long id) {
+        Customer customer = findCustomerById(id);
+
+        if (customer != null) {
+            customerList.remove(customer);
+        }
+    }
+
+    @Override
+    public void printAll() {
+        for (Customer customer : customerList) {
+            System.out.println(customer);
+        }
+    }
+
+    @Override
+    public List<Customer> findAll() {
+        return customerList;
+    }
+
+    @Override
+    public int countAll() {
+        return customerList.size();
+    }
+
+
     private List<Customer> doSearch(CustomerSearchCondition searchCondition) {
         boolean searchByFirstName = isNotBlank(searchCondition.getFirstName());
         boolean searchByLastName = isNotBlank(searchCondition.getLastName());
@@ -79,22 +106,6 @@ public class CustomerListRepo implements CustomerRepo {
 
     private List<Customer> getPageOfData(List<Customer> customers, Paginator paginator) {
         return CollectionUtils.getPageOfData(customers, paginator.getLimit(), paginator.getOffset());
-    }
-
-    @Override
-    public void deleteById(Long id) {
-        Customer customer = findCustomerById(id);
-
-        if (customer != null) {
-            customerList.remove(customer);
-        }
-    }
-
-    @Override
-    public void printAll() {
-        for (Customer customer : customerList) {
-            System.out.println(customer);
-        }
     }
 
     private Customer findCustomerById(Long customerId) {

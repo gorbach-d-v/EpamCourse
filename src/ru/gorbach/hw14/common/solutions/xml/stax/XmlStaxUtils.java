@@ -37,6 +37,4 @@ public final class XmlStaxUtils {
         }
         throw new RuntimeException("I didn't find suitable end tag");
     }
-
-
 }

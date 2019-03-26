@@ -19,7 +19,6 @@ public final class CommonComparatorHolder {
     };
 
     private CommonComparatorHolder() {
-
     }
 
     public static Comparator<String> getComparatorForNullableStrings() {

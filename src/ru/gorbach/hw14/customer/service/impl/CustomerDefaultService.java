@@ -73,6 +73,16 @@ public class CustomerDefaultService implements CustomerService {
         customerRepo.printAll();
     }
 
+    @Override
+    public List<Customer> findAll() {
+        return customerRepo.findAll();
+    }
+
+    @Override
+    public int countAll() {
+        return customerRepo.countAll();
+    }
+
     private void removeAllOrdersFromCustomer(Long customerId) {
         Customer customer = findById(customerId);
         if (customer != null) {

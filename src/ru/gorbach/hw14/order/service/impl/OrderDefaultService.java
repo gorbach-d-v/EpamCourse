@@ -58,4 +58,14 @@ public class OrderDefaultService implements OrderService {
     public void printAll() {
         orderRepo.printAll();
     }
+
+    @Override
+    public List<Order> findAll() {
+        return orderRepo.findAll();
+    }
+
+    @Override
+    public int countAll() {
+        return orderRepo.countAll();
+    }
 }

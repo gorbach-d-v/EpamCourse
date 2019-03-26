@@ -46,7 +46,6 @@ public class CountryDefaultService implements CountryService {
         }
     }
 
-
     @Override
     public Country findById(Long id) {
         if (id != null) {
@@ -85,6 +84,17 @@ public class CountryDefaultService implements CountryService {
     public void printAll() {
         countryRepo.printAll();
     }
+
+    @Override
+    public List<Country> findAll() {
+        return countryRepo.findAll();
+    }
+
+    @Override
+    public int countAll() {
+        return countryRepo.countAll();
+    }
+
 
     private void removeAllCitiesFromCountry(Long id) throws ReservationUncheckedException {
         Country country = findById(id);

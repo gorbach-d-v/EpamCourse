@@ -67,6 +67,33 @@ public class CustomerArrayRepo implements CustomerRepo {
         }
     }
 
+    @Override
+    public void deleteById(Long id) {
+        Integer customerIndex = findCustomerIndexById(id);
+
+        if (customerIndex != null) {
+            deleteCustomerByIndex(customerIndex);
+        }
+    }
+
+    @Override
+    public void printAll() {
+        for (Customer customer : customers) {
+            System.out.println(customer);
+        }
+    }
+
+    @Override
+    public List<Customer> findAll() {
+        return new ArrayList<>(Arrays.asList(customers));
+    }
+
+    @Override
+    public int countAll() {
+        return customers.length;
+    }
+
+
     private List<Customer> doSearch(CustomerSearchCondition searchCondition) {
         boolean searchByFirstName = isNotBlank(searchCondition.getFirstName());
         boolean searchByLastName = isNotBlank(searchCondition.getLastName());
@@ -104,22 +131,6 @@ public class CustomerArrayRepo implements CustomerRepo {
 
     private List<Customer> getPageOfData(List<Customer> customers, Paginator paginator) {
         return CollectionUtils.getPageOfData(customers, paginator.getLimit(), paginator.getOffset());
-    }
-
-    @Override
-    public void deleteById(Long id) {
-        Integer customerIndex = findCustomerIndexById(id);
-
-        if (customerIndex != null) {
-            deleteCustomerByIndex(customerIndex);
-        }
-    }
-
-    @Override
-    public void printAll() {
-        for (Customer customer : customers) {
-            System.out.println(customer);
-        }
     }
 
     private void deleteCustomerByIndex(int index) {

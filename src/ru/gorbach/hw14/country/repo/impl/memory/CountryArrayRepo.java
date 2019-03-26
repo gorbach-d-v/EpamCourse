@@ -66,6 +66,33 @@ public class CountryArrayRepo implements CountryRepo {
         }
     }
 
+    @Override
+    public void deleteById(Long id) {
+        Integer countryIndex = findCountryIndexById(id);
+
+        if (countryIndex != null) {
+            deleteCountryByIndex(countryIndex);
+        }
+    }
+
+    @Override
+    public void printAll() {
+        for (Country country : countries) {
+            System.out.println(country);
+        }
+    }
+
+    @Override
+    public List<Country> findAll() {
+        return new ArrayList<>(Arrays.asList(countries));
+    }
+
+    @Override
+    public int countAll() {
+        return countries.length;
+    }
+
+
     private List<Country> doSearch(CountrySearchCondition searchCondition) {
         boolean searchByName = isNotBlank(searchCondition.getName());
         boolean searchByLanguage = isNotBlank(searchCondition.getLanguage());
@@ -104,23 +131,6 @@ public class CountryArrayRepo implements CountryRepo {
     private List<Country> getPageOfData(List<Country> countries, Paginator paginator) {
         return CollectionUtils.getPageOfData(countries, paginator.getLimit(), paginator.getOffset());
     }
-
-    @Override
-    public void deleteById(Long id) {
-        Integer countryIndex = findCountryIndexById(id);
-
-        if (countryIndex != null) {
-            deleteCountryByIndex(countryIndex);
-        }
-    }
-
-    @Override
-    public void printAll() {
-        for (Country country : countries) {
-            System.out.println(country);
-        }
-    }
-
 
     private void deleteCountryByIndex(int index) {
         ArrayUtils.removeElement(countries, index);

@@ -11,12 +11,12 @@ import java.io.File;
 public final class XmlDomUtils {
 
     private XmlDomUtils() {
-
     }
 
     public static Document getDocument(String file) throws Exception {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = factory.newDocumentBuilder();
+
         return documentBuilder.parse(new File(file));
     }
 

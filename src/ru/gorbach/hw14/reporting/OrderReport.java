@@ -1,7 +1,7 @@
 package ru.gorbach.hw14.reporting;
 
         import ru.gorbach.hw14.order.domain.Order;
-        import ru.gorbach.hw14.order.repo.impl.memory.OrderListRepo;
+        import ru.gorbach.hw14.order.repo.impl.memory.OrderCollectionRepo;
         import ru.gorbach.hw14.order.search.OrderSearchCondition;
         import ru.gorbach.hw14.order.service.OrderService;
         import ru.gorbach.hw14.order.service.impl.OrderDefaultService;
@@ -12,7 +12,7 @@ package ru.gorbach.hw14.reporting;
 
 public class OrderReport {
     private static final String FILE_TO_WRITE_PATH = "./src/ru/gorbach/hw14/reporting/orders.txt";
-    private static OrderService orderService = new OrderDefaultService(new OrderListRepo());
+    private static OrderService orderService = new OrderDefaultService(new OrderCollectionRepo());
 
     public static void report() {
         try (PrintWriter writer = new PrintWriter(new FileOutputStream(FILE_TO_WRITE_PATH))) {

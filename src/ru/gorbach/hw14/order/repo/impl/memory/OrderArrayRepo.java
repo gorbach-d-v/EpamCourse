@@ -66,40 +66,6 @@ public class OrderArrayRepo implements OrderRepo {
         }
     }
 
-    private List<Order> doSearch(OrderSearchCondition searchCondition) {
-        boolean searchByPrice = (searchCondition.getPrice() != null);
-
-
-        Order[] result = new Order[orders.length];
-        int resultIndex = 0;
-
-        for (Order order : orders) {
-            if (order != null) {
-                boolean found = true;
-
-                if (searchByPrice) {
-                    found = searchCondition.getPrice().equals(order.getPrice());
-                }
-
-                if (found) {
-                    result[resultIndex] = order;
-                    resultIndex++;
-                }
-            }
-        }
-
-        if (resultIndex > 0) {
-            Order toReturn[] = new Order[resultIndex];
-            System.arraycopy(result, 0, toReturn, 0, resultIndex);
-            return new ArrayList<>(Arrays.asList(toReturn));
-        }
-        return Collections.emptyList();
-    }
-
-    private List<Order> getPageOfData(List<Order> orders, Paginator paginator) {
-        return CollectionUtils.getPageOfData(orders, paginator.getLimit(), paginator.getOffset());
-    }
-
     @Override
     public void deleteById(Long id) {
         Integer orderIndex = findOrderIndexById(id);
@@ -136,6 +102,50 @@ public class OrderArrayRepo implements OrderRepo {
             }
         }
         return count;
+    }
+
+    @Override
+    public List<Order> findAll() {
+        return new ArrayList<>(Arrays.asList(orders));
+    }
+
+    @Override
+    public int countAll() {
+        return orders.length;
+    }
+
+    private List<Order> doSearch(OrderSearchCondition searchCondition) {
+        boolean searchByPrice = (searchCondition.getPrice() != null);
+
+
+        Order[] result = new Order[orders.length];
+        int resultIndex = 0;
+
+        for (Order order : orders) {
+            if (order != null) {
+                boolean found = true;
+
+                if (searchByPrice) {
+                    found = searchCondition.getPrice().equals(order.getPrice());
+                }
+
+                if (found) {
+                    result[resultIndex] = order;
+                    resultIndex++;
+                }
+            }
+        }
+
+        if (resultIndex > 0) {
+            Order toReturn[] = new Order[resultIndex];
+            System.arraycopy(result, 0, toReturn, 0, resultIndex);
+            return new ArrayList<>(Arrays.asList(toReturn));
+        }
+        return Collections.emptyList();
+    }
+
+    private List<Order> getPageOfData(List<Order> orders, Paginator paginator) {
+        return CollectionUtils.getPageOfData(orders, paginator.getLimit(), paginator.getOffset());
     }
 
     private void deleteOrderByIndex(int index) {
