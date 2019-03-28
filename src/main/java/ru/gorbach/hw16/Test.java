@@ -1,13 +1,13 @@
-package ru.gorbach.hw14;
+package ru.gorbach.hw16;
 
-import ru.gorbach.hw14.city.service.CityService;
-import ru.gorbach.hw14.common.application.ApplicationConfigurations;
-import ru.gorbach.hw14.common.business.application.StorageType;
-import ru.gorbach.hw14.common.business.application.servicefactory.ServiceSupplier;
-import ru.gorbach.hw14.country.service.CountryService;
-import ru.gorbach.hw14.customer.service.CustomerService;
-import ru.gorbach.hw14.order.service.OrderService;
-import ru.gorbach.hw14.storage.initor.StorageInitor;
+import ru.gorbach.hw16.city.service.CityService;
+import ru.gorbach.hw16.common.application.ApplicationConfigurations;
+import ru.gorbach.hw16.common.business.application.StorageType;
+import ru.gorbach.hw16.common.business.application.servicefactory.ServiceSupplier;
+import ru.gorbach.hw16.country.service.CountryService;
+import ru.gorbach.hw16.customer.service.CustomerService;
+import ru.gorbach.hw16.order.service.OrderService;
+import ru.gorbach.hw16.storage.initor.StorageInitor;
 
 public class Test {
     private static class Application {
@@ -25,7 +25,6 @@ public class Test {
             storageInitor.initStorageWithCountriesAndCities(ApplicationConfigurations.INIT_DATA_XML_FILE, StorageInitor.DataSourceType.STAX_XML_FILE);
             countryService.printAll();
         }
-
     }
 
     public static void main(String[] args) {
