@@ -17,7 +17,7 @@ public class OrderReport {
     public static void report() {
         try (PrintWriter writer = new PrintWriter(new FileOutputStream(FILE_TO_WRITE_PATH))) {
             OrderSearchCondition orderSearchCondition = new OrderSearchCondition();
-            List<Order> orders = orderService.search(orderSearchCondition, null);
+            List<Order> orders = orderService.search(orderSearchCondition);
 
             if (orders.isEmpty()) {
                 writer.println("Order list is empty");
