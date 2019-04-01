@@ -2,14 +2,12 @@ package ru.gorbach.hw16.storage.initor;
 
 import ru.gorbach.hw16.country.domain.Country;
 import ru.gorbach.hw16.country.service.CountryService;
-import ru.gorbach.hw16.storage.initor.datareader.DataReader;
-import ru.gorbach.hw16.storage.initor.datareader.DomXmlDataReader;
-import ru.gorbach.hw16.storage.initor.datareader.TxtDataReader;
-import ru.gorbach.hw16.storage.initor.datareader.saxreader.SaxXmlDataReader;
-import ru.gorbach.hw16.storage.initor.datareader.staxreader.StaxXmlDataReader;
+import ru.gorbach.hw16.storage.initor.exception.checked.ParseXmlException;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static ru.gorbach.hw16.storage.initor.exception.InitDataExceptionMeta.PARSE_XML_EXCEPTION;
 
 public class StorageInitor {
     private CountryService countryService;
@@ -22,44 +20,34 @@ public class StorageInitor {
         TXT_FILE, DOM_XML_FILE, SAX_XML_FILE, STAX_XML_FILE
     }
 
-    public void initStorageWithCountriesAndCities(String filePath, DataSourceType dataSourceType) throws Exception {
-        List<Country> countryList = getMarksFromStorage(filePath, dataSourceType);
+    public void initStorageWithCountriesAndCities(List<String> filePaths, DataSourceType dataSourceType) throws Exception {
+        List<AsyncCountryParser> asyncCountryParsers = prepareParsers(filePaths, dataSourceType);
+        List<Country> countriesToPersist = asyncParseFilesAndWaitForResult(asyncCountryParsers);
 
-        if (!countryList.isEmpty()) {
-            for (Country country : countryList) {
-                countryService.add(country);
-            }
-        }
+        countryService.add(countriesToPersist);
     }
 
-    private List<Country> getMarksFromStorage(String filePath, DataSourceType dataSourceType) throws Exception {
+    private List<AsyncCountryParser> prepareParsers(List<String> filePaths, DataSourceType dataSourceType) {
+        List<AsyncCountryParser> countryFileParsers = new ArrayList<>();
+        for (String filePath : filePaths) {
+            countryFileParsers.add(new AsyncCountryParser(filePath, dataSourceType));
+        }
+        return countryFileParsers;
+    }
 
-        List<Country> countries = new ArrayList<>();
-        DataReader dataReader = null;
-
-        switch (dataSourceType) {
-
-            case TXT_FILE: {
-                dataReader = new TxtDataReader();
-                break;
-            }
-            case DOM_XML_FILE: {
-                dataReader = new DomXmlDataReader();
-                break;
-            }
-            case SAX_XML_FILE: {
-                dataReader = new SaxXmlDataReader();
-                break;
-            }
-            case STAX_XML_FILE: {
-                dataReader = new StaxXmlDataReader();
-                break;
-            }
+    private List<Country> asyncParseFilesAndWaitForResult(List<AsyncCountryParser> parsers) throws Exception {
+        for (AsyncCountryParser parser : parsers) {
+            parser.asyncParseCountries();
         }
 
-        if (dataReader != null) {
-            countries = dataReader.getDataFromFile(filePath);
+        List<Country> countriesToPersist = new ArrayList<>();
+        for (AsyncCountryParser parser : parsers) {
+            parser.blockUntilJobIsFinished();
+            if (parser.getParseException() != null) {
+                throw new ParseXmlException(PARSE_XML_EXCEPTION.getDescription(), parser.getParseException(), PARSE_XML_EXCEPTION.getCode());
+            }
+            countriesToPersist.addAll(parser.getCountries());
         }
-        return countries;
+        return countriesToPersist;
     }
 }

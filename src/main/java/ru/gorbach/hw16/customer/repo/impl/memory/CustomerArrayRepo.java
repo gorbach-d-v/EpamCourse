@@ -31,7 +31,7 @@ public class CustomerArrayRepo implements CustomerRepo {
         customerIndex++;
     }
 
-    //@Override
+    @Override
     public void add(Collection<Customer> customersList) {
         for (Customer customer : customersList) {
             add(customer);

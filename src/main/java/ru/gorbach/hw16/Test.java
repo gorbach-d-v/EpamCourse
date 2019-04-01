@@ -9,6 +9,11 @@ import ru.gorbach.hw16.customer.service.CustomerService;
 import ru.gorbach.hw16.order.service.OrderService;
 import ru.gorbach.hw16.storage.initor.StorageInitor;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class Test {
     private static class Application {
         static {
@@ -22,7 +27,9 @@ public class Test {
 
         private void initialize() throws Exception {
             StorageInitor storageInitor = new StorageInitor(countryService);
-            storageInitor.initStorageWithCountriesAndCities(ApplicationConfigurations.INIT_DATA_XML_FILE, StorageInitor.DataSourceType.STAX_XML_FILE);
+            String[] filePaths = {ApplicationConfigurations.INIT_DATA_XML_FILE1,ApplicationConfigurations.INIT_DATA_XML_FILE2};
+            List<String> filesWithInitData = new ArrayList<>(Arrays.asList(filePaths));
+            storageInitor.initStorageWithCountriesAndCities(filesWithInitData, StorageInitor.DataSourceType.STAX_XML_FILE);
             countryService.printAll();
         }
     }

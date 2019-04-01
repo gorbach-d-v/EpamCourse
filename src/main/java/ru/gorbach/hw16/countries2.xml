@@ -17,36 +17,6 @@
             </city>
         </cities>
     </country>
-    <country type="HOT">
-        <name>Britain</name>
-        <language>English</language>
-        <hotMonth>JULY</hotMonth>
-        <avgTemp>15.6</avgTemp>
-        <cities></cities>
-    </country>
-    <country type="COLD">
-        <name>Russia</name>
-        <language>Russian</language>
-        <phoneCode>7</phoneCode>
-        <havePolarNight>true</havePolarNight>
-        <cities>
-            <city>
-                <name>city1</name>
-                <population>150</population>
-                <isCapital>false</isCapital>
-            </city>
-            <city>
-                <name>city2</name>
-                <population>3000</population>
-                <isCapital>true</isCapital>
-            </city>
-            <city>
-                <name>city3</name>
-                <population>420</population>
-                <isCapital>false</isCapital>
-            </city>
-        </cities>
-    </country>
     <country type="COLD">
         <name>USA</name>
         <language>English</language>

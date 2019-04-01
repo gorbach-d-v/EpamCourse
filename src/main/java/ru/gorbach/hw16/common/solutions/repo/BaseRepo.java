@@ -7,7 +7,7 @@ public interface BaseRepo<T, ID> {
 
     void add(T t);
 
-    //void add(Collection<T> t);
+    void add(Collection<T> t);
 
     void update(T t);
 

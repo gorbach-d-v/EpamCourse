@@ -24,7 +24,7 @@ public class CityCollectionRepo implements CityRepo {
         cityList.add(city);
     }
 
-    //@Override
+    @Override
     public void add(Collection<City> citiesList) {
         for (City city : citiesList){
             add(city);

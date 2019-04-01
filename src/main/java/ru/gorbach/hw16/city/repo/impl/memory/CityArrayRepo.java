@@ -31,7 +31,7 @@ public class CityArrayRepo implements CityRepo {
         cityIndex++;
     }
 
-    //@Override
+    @Override
     public void add(Collection<City> citiesList) {
         for (City city : citiesList){
             add(city);

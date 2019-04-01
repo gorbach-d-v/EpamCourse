@@ -24,7 +24,7 @@ public class CustomerCollectionRepo implements CustomerRepo {
         customerList.add(customer);
     }
 
-    //@Override
+    @Override
     public void add(Collection<Customer> customersList) {
         for (Customer customer : customersList) {
             add(customer);

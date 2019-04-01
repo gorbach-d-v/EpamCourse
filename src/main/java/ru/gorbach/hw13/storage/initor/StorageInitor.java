@@ -21,7 +21,7 @@ public class StorageInitor {
     }
 
     public void initStorageWithCountriesAndCities(String filePath, DataSourceType dataSourceType) throws Exception {
-        List<Country> countryList = getMarksFromStorage(filePath, dataSourceType);
+        List<Country> countryList = getCountriesFromStorage(filePath, dataSourceType);
 
         if (!countryList.isEmpty()) {
             for (Country country : countryList) {
@@ -30,7 +30,7 @@ public class StorageInitor {
         }
     }
 
-    private List<Country> getMarksFromStorage(String filePath, DataSourceType dataSourceType) throws Exception {
+    private List<Country> getCountriesFromStorage(String filePath, DataSourceType dataSourceType) throws Exception {
 
         List<Country> countries = new ArrayList<>();
         DataReader dataReader = null;

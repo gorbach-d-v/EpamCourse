@@ -13,7 +13,7 @@ public class StorageInitor {
     }
 
     public void initStorageWithCountriesAndCities(String filePath) throws Exception {
-        List<Country> countryList = getMarksFromStorage(filePath);
+        List<Country> countryList = getCountriesFromStorage(filePath);
 
         if (!countryList.isEmpty()) {
             for (Country country : countryList) {
@@ -22,7 +22,7 @@ public class StorageInitor {
         }
     }
 
-    private List<Country> getMarksFromStorage(String filePath) throws Exception {
+    private List<Country> getCountriesFromStorage(String filePath) throws Exception {
 
         TxtInitialization txtInitialization = new TxtInitialization();
 

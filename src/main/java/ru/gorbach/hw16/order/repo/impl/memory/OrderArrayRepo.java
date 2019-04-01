@@ -29,7 +29,7 @@ public class OrderArrayRepo implements OrderRepo {
         orderIndex++;
     }
 
-    //@Override
+    @Override
     public void add(Collection<Order> ordersList) {
         for (Order order : ordersList) {
             add(order);
