@@ -1,0 +1,16 @@
+Country:  COLD   | Russia  | Russian | 7      | true
+city1  | 150     | false
+city2  | 3000    | true
+city3  | 420     | false
+
+Country:  COLD   | USA     | English | 1      | false
+city4  | 70      | false
+city5  | 1350    | true
+
+Country:  HOT    | France  | French  | AUGUST | 21.4
+city6  | 680     | false
+city7  | 16050   | true
+
+Country:  HOT    | Britain | English | JULY   | 15.6
+
+Country:
