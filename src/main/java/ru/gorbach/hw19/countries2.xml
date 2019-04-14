@@ -1,0 +1,38 @@
+<countries>
+    <country type="HOT">
+        <name>France</name>
+        <language>French</language>
+        <hotMonth>AUGUST</hotMonth>
+        <avgTemp>21.4</avgTemp>
+        <cities>
+            <city>
+                <name>city6</name>
+                <population>680</population>
+                <isCapital>false</isCapital>
+            </city>
+            <city>
+                <name>city7</name>
+                <population>16050</population>
+                <isCapital>true</isCapital>
+            </city>
+        </cities>
+    </country>
+    <country type="COLD">
+        <name>USA</name>
+        <language>English</language>
+        <phoneCode>1</phoneCode>
+        <havePolarNight>false</havePolarNight>
+        <cities>
+            <city>
+                <name>city4</name>
+                <population>70</population>
+                <isCapital>false</isCapital>
+            </city>
+            <city>
+                <name>city5</name>
+                <population>1350</population>
+                <isCapital>true</isCapital>
+            </city>
+        </cities>
+    </country>
+</countries>
