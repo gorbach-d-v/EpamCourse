@@ -21,6 +21,11 @@ public class OrderSearchCondition extends BaseSearchCondition {
         return cityId != null;
     }
 
+    public boolean searchByPrice() {
+        return price != null;
+    }
+
+
     public Long getCustomerId() {
         return customerId;
     }
@@ -52,6 +57,7 @@ public class OrderSearchCondition extends BaseSearchCondition {
     public void setPrice(Integer price) {
         this.price = price;
     }
+
 
     public OrderOrderByField getOrderByField() {
         return orderByField;

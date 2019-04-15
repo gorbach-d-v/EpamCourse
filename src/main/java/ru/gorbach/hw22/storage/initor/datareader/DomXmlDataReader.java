@@ -69,13 +69,13 @@ public class DomXmlDataReader implements DataReader {
     }
 
     private Country createCountryByDiscriminator(String discriminatorAsStr) throws InitDataCheckedException {
-        if (CountryDiscriminator.isDiscriminatorNotExists(discriminatorAsStr)) {
+        if (!CountryDiscriminator.getDiscriminatorByName(discriminatorAsStr).isPresent()) {
             throw new InitDataCheckedException(
                     PARSE_COUNTRY_DISCRIMINATOR_ERROR.getDescriptionAsFormatStr(discriminatorAsStr),
                     PARSE_COUNTRY_DISCRIMINATOR_ERROR.getCode()
             );
         } else {
-            CountryDiscriminator discriminator = CountryDiscriminator.getDiscriminatorByName(discriminatorAsStr);
+            CountryDiscriminator discriminator = CountryDiscriminator.getDiscriminatorByName(discriminatorAsStr).get();
             if (CountryDiscriminator.HOT.equals(discriminator)) {
                 return new CountryWithHotClimate();
             }

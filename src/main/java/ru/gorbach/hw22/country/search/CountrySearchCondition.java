@@ -7,6 +7,15 @@ public class CountrySearchCondition extends BaseSearchCondition {
     private String language;
     private CountryOrderByField orderByField;
 
+    public boolean searchByName() {
+        return name == null || name.isEmpty();
+    }
+
+    public boolean searchByLanguage() {
+        return language == null || language.isEmpty();
+    }
+
+
     public String getName() {
         return name;
     }
@@ -22,6 +31,7 @@ public class CountrySearchCondition extends BaseSearchCondition {
     public void setLanguage(String language) {
         this.language = language;
     }
+
 
     public CountryOrderByField getOrderByField() {
         return orderByField;

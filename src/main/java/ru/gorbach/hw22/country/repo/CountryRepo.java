@@ -7,5 +7,5 @@ import ru.gorbach.hw22.country.search.CountrySearchCondition;
 import java.util.List;
 
 public interface CountryRepo extends BaseRepo<Country, Long> {
-    List<Country> search(CountrySearchCondition searchCondition);
+    List<? extends Country> search(CountrySearchCondition searchCondition);
 }

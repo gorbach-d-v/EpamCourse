@@ -69,7 +69,7 @@ public class CountryDefaultService implements CountryService {
     }
 
     @Override
-    public List<Country> search(CountrySearchCondition searchCondition) {
+    public List<? extends Country> search(CountrySearchCondition searchCondition) {
         return countryRepo.search(searchCondition);
     }
 

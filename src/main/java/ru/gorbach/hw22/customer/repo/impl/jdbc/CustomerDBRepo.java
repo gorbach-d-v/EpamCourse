@@ -22,7 +22,7 @@ public class CustomerDBRepo implements CustomerRepo {
     @Override
     public Customer add(Customer customer) {
         try {
-            Optional<Long> generatedId = QueryWrapper.executeUpdateReturningGeneratedKey(getInsertCustomerSql(),
+            Optional<Long> generatedId = QueryWrapper.executeUpdateReturningGeneratedKey(getAddCustomerSql(),
                     ps -> {
                         appendPreparedStatementParamsForCustomer(new AtomicInteger(0), ps, customer);
                     },
@@ -45,7 +45,7 @@ public class CustomerDBRepo implements CustomerRepo {
     @Override
     public void add(Collection<Customer> customers) {
         try {
-            QueryWrapper.executeUpdateAsBatch(getInsertCustomerSql(), customers,
+            QueryWrapper.executeUpdateAsBatch(getAddCustomerSql(), customers,
                     (ps, customer) -> appendPreparedStatementParamsForCustomer(new AtomicInteger(0), ps, customer));
         } catch (Exception e) {
             throw new SqlError(e);
@@ -122,8 +122,7 @@ public class CustomerDBRepo implements CustomerRepo {
         try {
             SqlPreparedStatementConsumerHolder sqlParamsHolder = getSearchSqlAndPrStmtHolder(searchCondition);
 
-            return QueryWrapper.select(sqlParamsHolder.getSql(),
-                    CustomerMapper::mapCustomer,
+            return QueryWrapper.select(sqlParamsHolder.getSql(), CustomerMapper::mapCustomer,
                     ps -> {
                         List<PreparedStatementConsumer> psConsumers = sqlParamsHolder.getPreparedStatementConsumers();
                         for (PreparedStatementConsumer consumer : psConsumers) {
@@ -157,6 +156,7 @@ public class CustomerDBRepo implements CustomerRepo {
                 where.add("(LAST_NAME = ?)");
                 psConsumers.add(ps -> ps.setString(index.incrementAndGet(), searchCondition.getLastName()));
             }
+
             String whereStr = String.join(" AND ", where);
             sql = sql + (whereStr.isEmpty() ? "" : " WHERE " + whereStr) + getOrdering(searchCondition);
 
@@ -191,7 +191,7 @@ public class CustomerDBRepo implements CustomerRepo {
         return "";
     }
 
-    private String getInsertCustomerSql() {
+    private String getAddCustomerSql() {
         return "INSERT INTO USER ( FIRST_NAME, LAST_NAME ) VALUES (?, ?)";
     }
 
@@ -199,12 +199,6 @@ public class CustomerDBRepo implements CustomerRepo {
         ps.setString(index.incrementAndGet(), customer.getFirstName());
         ps.setString(index.incrementAndGet(), customer.getLastName());
     }
-
-
-
-
-
-
 }
 
 

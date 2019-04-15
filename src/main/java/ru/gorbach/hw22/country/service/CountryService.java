@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface CountryService extends BaseService<Country, Long> {
 
-    List<Country> search(CountrySearchCondition searchCondition);
+    List<? extends Country> search(CountrySearchCondition searchCondition);
 
 }

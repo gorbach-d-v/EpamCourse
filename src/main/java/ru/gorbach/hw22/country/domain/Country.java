@@ -69,7 +69,7 @@ public abstract class Country extends BaseDomain<Long> {
                 "id=" + id + '\'' +
                 "name='" + name + '\'' +
                 ", language='" + language + '\'' +
-                ", cities=" + getCitiesAsString() +
+               /* ", cities=" + getCitiesAsString() +*/
                 '}';
     }
 }

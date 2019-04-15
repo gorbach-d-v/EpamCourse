@@ -140,7 +140,7 @@ public class CountriesSaxHandler extends DefaultHandler {
 
     private Country createCountryByDiscriminator(String discriminatorAsStr) {
 
-        CountryDiscriminator discriminator = CountryDiscriminator.getDiscriminatorByName(discriminatorAsStr);
+        CountryDiscriminator discriminator = CountryDiscriminator.getDiscriminatorByName(discriminatorAsStr).get();
         if (CountryDiscriminator.HOT.equals(discriminator)) {
             return new CountryWithHotClimate();
         }

@@ -2,6 +2,7 @@ package ru.gorbach.hw22.country.domain;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public enum CountryDiscriminator {
     HOT, COLD;
@@ -14,15 +15,7 @@ public enum CountryDiscriminator {
         }
     }
 
-    public static CountryDiscriminator getDiscriminatorByName(String discriminatorName) {
-        return stringModelDiscriminatorMap.get(discriminatorName);
-    }
-
-    public static boolean isDiscriminatorExists(String discriminator) {
-        return getDiscriminatorByName(discriminator) != null;
-    }
-
-    public static boolean isDiscriminatorNotExists(String discriminator) {
-        return !isDiscriminatorExists(discriminator);
+    public static Optional<CountryDiscriminator> getDiscriminatorByName(String discriminatorName) {
+        return Optional.ofNullable(stringModelDiscriminatorMap.get(discriminatorName));
     }
 }

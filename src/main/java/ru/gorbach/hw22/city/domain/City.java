@@ -21,6 +21,13 @@ public class City extends BaseDomain<Long> {
         this.isCapital = isCapital;
     }
 
+    public City(Long countryId, String name, int population, boolean isCapital) {
+        this.countryId = countryId;
+        this.name = name;
+        this.population = population;
+        this.isCapital = isCapital;
+    }
+
     public void setName(String name) {
         this.name = name;
     }

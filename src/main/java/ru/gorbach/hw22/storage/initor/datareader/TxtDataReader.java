@@ -109,13 +109,13 @@ public class TxtDataReader implements DataReader {
     }
 
     private Country createCountryByDiscriminator(String discriminatorAsStr, String name, String language) throws InitDataCheckedException {
-        if (CountryDiscriminator.isDiscriminatorNotExists(discriminatorAsStr)) {
+        if (!CountryDiscriminator.getDiscriminatorByName(discriminatorAsStr).isPresent()){
             throw new InitDataCheckedException(
                     PARSE_COUNTRY_DISCRIMINATOR_ERROR.getDescriptionAsFormatStr(discriminatorAsStr),
                     PARSE_COUNTRY_DISCRIMINATOR_ERROR.getCode()
             );
         } else {
-            CountryDiscriminator discriminator = CountryDiscriminator.getDiscriminatorByName(discriminatorAsStr);
+            CountryDiscriminator discriminator = CountryDiscriminator.getDiscriminatorByName(discriminatorAsStr).get();
             if (CountryDiscriminator.HOT.equals(discriminator)) {
                 return new CountryWithHotClimate(name, language);
             }
