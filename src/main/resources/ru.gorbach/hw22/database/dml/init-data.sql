@@ -1,0 +1,31 @@
+DELETE
+FROM USER;
+DELETE
+FROM CITY;
+DELETE
+FROM COUNTRY;
+DELETE
+FROM ORDER_TAB;
+
+INSERT INTO USER (FIRST_NAME, LAST_NAME)
+VALUES ('Joshua', 'Bloch'),
+       ('Bruce', 'Eckel'),
+       ('Herbert', 'Schildt');
+
+INSERT INTO COUNTRY (NAME, LANGUAGE, DISCRIMINATOR, PHONE_CODE, POLAR_NIGHT, HOTTEST_MONTH, AVERAGE_TEMPERATURE)
+VALUES ('Russia', 'Russian', 'COLD', 7, TRUE, NULL, NULL),
+       ('USA', 'English', 'COLD', 1, FALSE, NULL, NULL),
+       ('Britain', 'English', 'HOT', NULL, NULL, 'JUNE', 15.6),
+       ('France', 'French', 'HOT', NULL, NULL, 'JULY', 14.3);
+
+INSERT INTO CITY (COUNTRY_ID, NAME, POPULATION, CAPITAL)
+VALUES ((SELECT ID FROM COUNTRY WHERE NAME = 'Russia'), 'Moscow', 12615, TRUE),
+       ((SELECT ID FROM COUNTRY WHERE NAME = 'USA'), 'Miami', 463, FALSE),
+       ((SELECT ID FROM COUNTRY WHERE NAME = 'USA'), 'Washington', 702, TRUE),
+       ((SELECT ID FROM COUNTRY WHERE NAME = 'Britain'), 'London', 8136, TRUE),
+       ((SELECT ID FROM COUNTRY WHERE NAME = 'France'), 'Lyon', 506, FALSE),
+       ((SELECT ID FROM COUNTRY WHERE NAME = 'France'), 'Marseille', 869, FALSE),
+       ((SELECT ID FROM COUNTRY WHERE NAME = 'Russia'), 'Saint-Petersburg', 4991, FALSE),
+       ((SELECT ID FROM COUNTRY WHERE NAME = 'France'), 'Paris', 2190, TRUE),
+       ((SELECT ID FROM COUNTRY WHERE NAME = 'France'), 'Bordeaux', 241, FALSE),
+       ((SELECT ID FROM COUNTRY WHERE NAME = 'Britain'), 'Manchester', 510, FALSE);
